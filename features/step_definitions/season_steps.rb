@@ -11,15 +11,17 @@ Then(/^I should see those seasons$/) do
 end
 
 Given(/^one season exists$/) do
-  pending # express the regexp above with the code you wish you had
+  @season = Season.create! name: 'season1', beginning_date: '2016-01-01', ending_date: '2016-12-31'
 end
 
 When(/^I click on the name of that season$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link(@season.name)
 end
 
 Then(/^I should see the details for that season$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content(@season.name)
+  expect(page).to have_content(@season.beginning_date)
+  expect(page).to have_content(@season.ending_date)
 end
 
 When(/^I alter the details for that season$/) do

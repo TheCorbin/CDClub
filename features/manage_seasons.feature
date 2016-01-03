@@ -22,7 +22,7 @@ Scenario: Admin views seasons list
  When I follow "Seasons"
  Then I should be on the show seasons index page
  And I should see those seasons
- 
+
 Scenario: Admin views individual season
  Given one season exists
  And I'm on the seasons index page

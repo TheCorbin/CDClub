@@ -1,5 +1,5 @@
 Given(/^I'm on the admin page$/) do
-  visit('/admin')
+  visit(admin_path)
 end
 
 Then(/^I should be on the show page for that season$/) do
@@ -12,7 +12,7 @@ Then(/^I should be on the show seasons index page$/) do
 end
 
 Given(/^I'm on the seasons index page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit(seasons_path)
 end
 
 Given(/^I'm on the show page for that season$/) do
