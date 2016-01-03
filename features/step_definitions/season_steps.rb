@@ -1,9 +1,13 @@
 Given(/^two seasons exist$/) do
-  pending # express the regexp above with the code you wish you had
+  season1 = Season.create! name: 'season1', beginning_date: '2016-01-01', ending_date: '2016-12-31'
+  season2 = Season.create! name: 'season2', beginning_date: '2017-01-01', ending_date: '2017-12-31'
+  @seasons = [season1, season2]
 end
 
-Then(/^I should see all seasons that have been created$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see those seasons$/) do
+  @seasons.each do |season|
+    expect(page).to have_content(season.name)
+  end
 end
 
 Given(/^one season exists$/) do
