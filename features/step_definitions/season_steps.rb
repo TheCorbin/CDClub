@@ -1,6 +1,6 @@
 Given(/^two seasons exist$/) do
-  season1 = Season.create! name: 'season1', beginning_date: '2016-01-01', ending_date: '2016-12-31'
-  season2 = Season.create! name: 'season2', beginning_date: '2017-01-01', ending_date: '2017-12-31'
+  season1 = create :season
+  season2 = create :season
   @seasons = [season1, season2]
 end
 
