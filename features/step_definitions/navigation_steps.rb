@@ -15,6 +15,4 @@ Given(/^I'm on the seasons index page$/) do
   visit(seasons_path)
 end
 
-Given(/^I'm on the show page for that season$/) do
-  pending # express the regexp above with the code you wish you had
-end
+

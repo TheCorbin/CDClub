@@ -14,14 +14,7 @@ Then(/^I should see "(.*?)"$/) do |desired_text|
   page.has_content?(desired_text)
 end
 
-When(/^I click on "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
 # Abstract way to select date with the year, month, day pulldowns that the scaffold generator uses
-
-
-
 When(/^I select date "(.*?)" for "(.*?)"$/) do |date_str, date_field_prefix|
   month, day, year = date_str.split('/')
   month_name = Date::MONTHNAMES[month.to_i]

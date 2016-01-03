@@ -32,9 +32,9 @@ Scenario: Admin views individual season
 Scenario: Admin alters season
  Given one season exists
  And I'm on the show page for that season
- When I click on "Alter Season"
+ When I follow "Alter Season"
  And I alter the details for that season
- And I press "Submit"
+ And I press "Update Season"
  Then I should see the new details for that season
 
 Scenario: Admin deletes season
