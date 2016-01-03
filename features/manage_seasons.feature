@@ -40,5 +40,5 @@ Scenario: Admin alters season
 Scenario: Admin deletes season
  Given one season exists
  And I'm on the seasons index page
- When I click on that season's "Delete" button
+ When I follow that season's "Destroy" link
  Then I should not see that season

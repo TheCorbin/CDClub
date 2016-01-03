@@ -35,12 +35,12 @@ Then(/^I should see the new details for that season$/) do
   step 'I should see the details for that season'
 end
 
-When(/^I click on that season's "(.*?)" button$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I follow that season's "(.*?)" link$/) do |arg1|
+  click_link('Destroy')
 end
 
 Then(/^I should not see that season$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).not_to have_content(@season.name)
 end
 
 Given(/^I'm on the show page for that season$/) do
