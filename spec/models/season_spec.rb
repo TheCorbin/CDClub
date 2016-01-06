@@ -13,19 +13,25 @@ RSpec.describe Season, type: :model do
     it { is_expected.to validate_uniqueness_of(:ending_date) }
 
     describe 'validate_sane_dates' do
+      let(:subject) { build :season, beginning_date: beginning_date, ending_date: ending_date }
       context 'ending_date after beginning_date' do
-        let(:subject) { build :season, beginning_date: Date.yesterday, ending_date: Date.today }
+        let(:beginning_date) { Date.yesterday }
+        let(:ending_date) { Date.today }
 
         it { is_expected.to be_valid }
       end
 
       context 'ending_date same as beginning_date' do
-        let(:subject) { build :season, beginning_date: Date.today, ending_date: Date.today }
+        let(:beginning_date) { Date.today }
+        let(:ending_date) { Date.today }
+
         it { is_expected.not_to be_valid }
       end
 
       context 'ending_date before beginning_date' do
-        let(:subject) { build :season, beginning_date: Date.today, ending_date: Date.yesterday }
+        let(:beginning_date) { Date.today }
+        let(:ending_date) { Date.yesterday }
+
         it { is_expected.not_to be_valid }
       end
 
