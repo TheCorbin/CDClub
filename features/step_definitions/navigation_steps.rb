@@ -15,4 +15,18 @@ Given(/^I'm on the seasons index page$/) do
   visit(seasons_path)
 end
 
+Then(/^I should be on the show page for that member$/) do
+  pending # express the regexp above with the code you wish you had
+end
 
+Then(/^I should be on the show members index page$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^I'm on the members index page$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^I'm on the show page for that member$/) do
+  pending # express the regexp above with the code you wish you had
+end
