@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Season, type: :model do
+  describe 'factory' do
+    let!(:first_season) { create :season }
+    let!(:second_season) { build :season }
+    it 'creates multiple valid seasons' do
+      expect(second_season).to be_valid
+    end
+  end
+
   context 'validation' do
     let(:subject) { create :season }
 

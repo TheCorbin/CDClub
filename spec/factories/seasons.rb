@@ -4,5 +4,4 @@ FactoryGirl.define do
     sequence(:beginning_date) { |n| Date.parse("2016-01-03") + n.days }
     sequence(:ending_date) { |n| Date.parse("2016-12-31") + n.days }
   end
-
 end
