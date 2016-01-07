@@ -7,6 +7,6 @@ RSpec.describe "seasons/index", type: :view do
 
   it "renders a list of seasons" do
     render
-    assert_select "tr>td", :text => /Name/, :count => 2
+    assert_select "tr>td", text: /Name/, count: 2
   end
 end

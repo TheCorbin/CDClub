@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "seasons/new", type: :view do
   before(:each) do
     assign(:season, Season.new(
-      :name => "MyString"
+      name: "MyString"
     ))
   end
 

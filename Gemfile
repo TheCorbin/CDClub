@@ -40,13 +40,14 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
   gem 'shoulda-matchers'
 end
 
 group :development do
+  gem 'rubocop', require: false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
 

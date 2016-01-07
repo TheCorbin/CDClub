@@ -51,7 +51,7 @@ RSpec.describe SeasonsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested season as @season" do
       season = Season.create! valid_attributes
-      get :show, {:id => season.to_param}, valid_session
+      get :show, {id: season.to_param}, valid_session
       expect(assigns(:season)).to eq(season)
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe SeasonsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested season as @season" do
       season = Season.create! valid_attributes
-      get :edit, {:id => season.to_param}, valid_session
+      get :edit, {id: season.to_param}, valid_session
       expect(assigns(:season)).to eq(season)
     end
   end
@@ -75,30 +75,30 @@ RSpec.describe SeasonsController, type: :controller do
     context "with valid params" do
       it "creates a new Season" do
         expect {
-          post :create, {:season => valid_attributes}, valid_session
+          post :create, {season: valid_attributes}, valid_session
         }.to change(Season, :count).by(1)
       end
 
       it "assigns a newly created season as @season" do
-        post :create, {:season => valid_attributes}, valid_session
+        post :create, {season: valid_attributes}, valid_session
         expect(assigns(:season)).to be_a(Season)
         expect(assigns(:season)).to be_persisted
       end
 
       it "redirects to the created season" do
-        post :create, {:season => valid_attributes}, valid_session
+        post :create, {season: valid_attributes}, valid_session
         expect(response).to redirect_to(Season.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved season as @season" do
-        post :create, {:season => invalid_attributes}, valid_session
+        post :create, {season: invalid_attributes}, valid_session
         expect(assigns(:season)).to be_a_new(Season)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:season => invalid_attributes}, valid_session
+        post :create, {season: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -116,7 +116,7 @@ RSpec.describe SeasonsController, type: :controller do
 
       it "updates the requested season" do
         season = Season.create! valid_attributes
-        put :update, {:id => season.to_param, :season => new_attributes}, valid_session
+        put :update, {id: season.to_param, season: new_attributes}, valid_session
         season.reload
         expect(season.name).to eq('New Season')
         expect(season.beginning_date).to eq(Date.parse('2018-01-01'))
@@ -125,13 +125,13 @@ RSpec.describe SeasonsController, type: :controller do
 
       it "assigns the requested season as @season" do
         season = Season.create! valid_attributes
-        put :update, {:id => season.to_param, :season => valid_attributes}, valid_session
+        put :update, {id: season.to_param, season: valid_attributes}, valid_session
         expect(assigns(:season)).to eq(season)
       end
 
       it "redirects to the season" do
         season = Season.create! valid_attributes
-        put :update, {:id => season.to_param, :season => valid_attributes}, valid_session
+        put :update, {id: season.to_param, season: valid_attributes}, valid_session
         expect(response).to redirect_to(season)
       end
     end
@@ -139,13 +139,13 @@ RSpec.describe SeasonsController, type: :controller do
     context "with invalid params" do
       it "assigns the season as @season" do
         season = Season.create! valid_attributes
-        put :update, {:id => season.to_param, :season => invalid_attributes}, valid_session
+        put :update, {id: season.to_param, season: invalid_attributes}, valid_session
         expect(assigns(:season)).to eq(season)
       end
 
       it "re-renders the 'edit' template" do
         season = Season.create! valid_attributes
-        put :update, {:id => season.to_param, :season => invalid_attributes}, valid_session
+        put :update, {id: season.to_param, season: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -155,13 +155,13 @@ RSpec.describe SeasonsController, type: :controller do
     it "destroys the requested season" do
       season = Season.create! valid_attributes
       expect {
-        delete :destroy, {:id => season.to_param}, valid_session
+        delete :destroy, {id: season.to_param}, valid_session
       }.to change(Season, :count).by(-1)
     end
 
     it "redirects to the seasons list" do
       season = Season.create! valid_attributes
-      delete :destroy, {:id => season.to_param}, valid_session
+      delete :destroy, {id: season.to_param}, valid_session
       expect(response).to redirect_to(seasons_url)
     end
   end
