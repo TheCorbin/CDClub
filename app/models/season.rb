@@ -9,12 +9,8 @@ class Season < ActiveRecord::Base
 
   def validate_sane_dates
     if beginning_date.present? && ending_date.present?
-      if beginning_date == ending_date
+      unless beginning_date < ending_date
         errors.add(:ending_date, "must come after beginning date")
-      end
-
-      if ending_date < beginning_date
-        errors.add(:beginning_date, "must come before ending date")
       end
     end
   end
