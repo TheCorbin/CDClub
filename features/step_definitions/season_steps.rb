@@ -35,8 +35,8 @@ Then(/^I should see the new details for that season$/) do
   step 'I should see the details for that season'
 end
 
-When(/^I follow that season's "(.*?)" link$/) do |arg1|
-  click_link('Destroy')
+When(/^I follow that season's "(.*?)" link$/) do |link_name|
+  click_link(link_name)
 end
 
 Then(/^I should not see that season$/) do

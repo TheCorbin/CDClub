@@ -42,5 +42,5 @@ Scenario: Admin alters member
 Scenario: Admin deletes member
   Given one member exists
   And I'm on the members index page
-  When I click on that member's "Destroy" button
+  When I follow that member's "Destroy" link
   Then I should not see that member

@@ -16,17 +16,14 @@ Given(/^I'm on the seasons index page$/) do
 end
 
 Then(/^I should be on the show page for that member$/) do
-  pending # express the regexp above with the code you wish you had
+  @that_member ||= Member.last
+  expect(page).to have_current_path(member_path(@that_member))
 end
 
 Then(/^I should be on the show members index page$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_current_path(members_path)
 end
 
 Given(/^I'm on the members index page$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Given(/^I'm on the show page for that member$/) do
-  pending # express the regexp above with the code you wish you had
+  visit(members_path)
 end

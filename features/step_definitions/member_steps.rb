@@ -1,35 +1,50 @@
 Given(/^two members exist$/) do
-  pending # express the regexp above with the code you wish you had
+  member1 = create :member
+  member2 = create :member
+  @members = [member1, member2]
 end
 
 Then(/^I should see those members$/) do
-  pending # express the regexp above with the code you wish you had
+  @members.each do |member|
+    expect(page).to have_content(member.name)
+  end
 end
 
 Given(/^one member exists$/) do
-  pending # express the regexp above with the code you wish you had
+  @member = Member.create! name: 'Ryan Corbin', month: 'November', email: 'Ryan@gmail.com', address: '123 Fake St, Madison, WI 53714'
 end
 
 When(/^I click on the name of that member$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link(@member.name)
 end
 
 Then(/^I should see the details for that member$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content(@member.name)
+  expect(page).to have_content(@member.month)
+  expect(page).to have_content(@member.email)
+  expect(page).to have_content(@member.address)
+end
+
+Given(/^I'm on the show page for that member$/) do
+  visit(member_path(@member))
 end
 
 When(/^I alter the details for that member$/) do
-  pending # express the regexp above with the code you wish you had
+  fill_in 'Name', with: 'James Hidigger'
+  select('December', from: 'Month')
+  fill_in 'Email', with: 'James@gmail.com'
+  fill_in 'Address', with: '123 Phony St, Madison, WI 53714'
 end
 
 Then(/^I should see the new details for that member$/) do
-  pending # express the regexp above with the code you wish you had
+  @member = Member.new name: 'James Hidigger', month: 'December', email: 'James@gmail.com', address: '123 Phony St, Madison, WI 53714'
+  step 'I should see the details for that member'
 end
 
-When(/^I click on that member's "(.*?)" button$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I follow that member's "(.*?)" link$/) do |link_name|
+  click_link(link_name)
 end
 
 Then(/^I should not see that member$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).not_to have_content(@member.name)
 end

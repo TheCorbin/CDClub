@@ -15,10 +15,16 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
   <div class="field">
     <%= f.label :month %><br>
-    <%= f.text_field :month %>
+    <%= f.select (:month) do%>
+      <%['January','February','March','April','May','June','July','August','September','October','November','December'].each do |c| -%>
+        <%= content_tag(:option, c, value: c) %>
+      <% end %>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
