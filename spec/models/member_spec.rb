@@ -24,45 +24,36 @@ RSpec.describe Member, type: :model do
     end
 
     describe 'email' do
-      let(:member) {build :member, email: email}
+      let(:email) { 'valid_email@example.com' }
+      let(:subject) {build :member, email: email}
+
       it { is_expected.to validate_presence_of(:email) }
       it { is_expected.to validate_uniqueness_of(:email) }
 
       context 'when valid' do
-        let(:email) { 'valid_email@example.com' }
-        it "is valid" do
-          expect(member).to be_valid
-        end
+        it { is_expected.to be_valid }
       end
 
       context 'missing @ symbol' do
         let(:email) { 'no_at_sign_example.com' }
-        it 'is invalid' do
-          expect(member).not_to be_valid
-        end
+        it { is_expected.not_to be_valid }
       end
 
       context 'without suffix' do
         let(:email) { 'no_suffix@example' }
-        it 'is invalid' do
-          expect(member).not_to be_valid
-        end
+        it { is_expected.not_to be_valid }
       end
 
       context 'without prefix' do
         let(:email) { '@example.com' }
-        it 'is invalid' do
-          expect(member).not_to be_valid
-        end
+        it { is_expected.not_to be_valid }
       end
 
       ILLEGAL_EMAIL_CHARACTERS.each do |bad_char|
         context "illegal character: '#{bad_char}'" do
           let(:email) { "bad_#{bad_char}_characters@example.com" }
 
-          it 'is invalid' do
-            expect(member).not_to be_valid
-          end
+          it { is_expected.not_to be_valid }
         end
       end
     end
