@@ -19,10 +19,6 @@ RSpec.describe Member, type: :model do
       it { is_expected.to validate_uniqueness_of(:name) }
     end
 
-    describe 'month' do
-      it { is_expected.not_to validate_presence_of(:month) }
-    end
-
     describe 'email' do
       let(:email) { 'valid_email@example.com' }
       let(:subject) {build :member, email: email}

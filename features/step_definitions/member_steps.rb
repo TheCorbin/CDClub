@@ -11,7 +11,7 @@ Then(/^I should see those members$/) do
 end
 
 Given(/^one member exists$/) do
-  @member = Member.create! name: 'Ryan Corbin', month: 'November', email: 'Ryan@gmail.com', address: '123 Fake St, Madison, WI 53714'
+  @member = Member.create! name: 'Ryan Corbin',  email: 'Ryan@gmail.com', address: '123 Fake St, Madison, WI 53714'
 end
 
 When(/^I click on the name of that member$/) do
@@ -20,7 +20,6 @@ end
 
 Then(/^I should see the details for that member$/) do
   expect(page).to have_content(@member.name)
-  expect(page).to have_content(@member.month)
   expect(page).to have_content(@member.email)
   expect(page).to have_content(@member.address)
 end
@@ -31,13 +30,12 @@ end
 
 When(/^I alter the details for that member$/) do
   fill_in 'Name', with: 'James Hidigger'
-  select('December', from: 'Month')
   fill_in 'Email', with: 'James@gmail.com'
   fill_in 'Address', with: '123 Phony St, Madison, WI 53714'
 end
 
 Then(/^I should see the new details for that member$/) do
-  @member = Member.new name: 'James Hidigger', month: 'December', email: 'James@gmail.com', address: '123 Phony St, Madison, WI 53714'
+  @member = Member.new name: 'James Hidigger', email: 'James@gmail.com', address: '123 Phony St, Madison, WI 53714'
   step 'I should see the details for that member'
 end
 

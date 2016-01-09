@@ -8,7 +8,6 @@ Scenario: Admin creates member
   When I follow "Members"
     And I follow "New Member"
     And I fill in "Name" with "Ryan Corbin"
-    And I select "January" from "Month"
     And I fill in "Email" with "Ryanjcorbin@gmail.com"
     And I fill in "Address" with "3409 Dawes St, Apartment B, Madison, WI 53066"
    And I press "Create Member"

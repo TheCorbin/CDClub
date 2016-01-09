@@ -105,7 +105,6 @@ RSpec.describe MembersController, type: :controller do
       let(:new_attributes) {
         {
           name: 'New Name',
-          month: 'February',
           email: 'new_email@example.com',
           address: '222 New Lane, Madison, WI 53703'
         }
@@ -116,7 +115,6 @@ RSpec.describe MembersController, type: :controller do
         put :update, {:id => member.to_param, :member => new_attributes}, valid_session
         member.reload
         expect(member.name).to eq('New Name')
-        expect(member.month).to eq('February')
         expect(member.email).to eq('new_email@example.com')
         expect(member.address).to eq('222 New Lane, Madison, WI 53703')
       end
