@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+ILLEGAL_EMAIL_CHARACTERS = ['(', ')', '<', '>', ',', ';', ':', "\\", '/', "\"", '[', ']', '{', '}' ]
+
 RSpec.describe Member, type: :model do
   describe 'factory' do
     let! (:first_member) { create :member }
@@ -54,10 +56,13 @@ RSpec.describe Member, type: :model do
         end
       end
 
-      context 'illegal characters' do
-        let(:email) { 'bad_;characters@example.com' }
-        it 'is invalid' do
-          expect(member).not_to be_valid
+      ILLEGAL_EMAIL_CHARACTERS.each do |bad_char|
+        context "illegal character: '#{bad_char}'" do
+          let(:email) { "bad_#{bad_char}_characters@example.com" }
+
+          it 'is invalid' do
+            expect(member).not_to be_valid
+          end
         end
       end
     end
@@ -65,7 +70,6 @@ RSpec.describe Member, type: :model do
     describe 'address' do
       it { is_expected.to validate_presence_of(:address) }
     end
-
 
   end
 end
