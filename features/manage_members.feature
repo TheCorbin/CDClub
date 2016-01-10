@@ -18,7 +18,7 @@ Scenario: Admin creates member
     And I should see "3409 Dawes St, Apartment B, Madison, WI 53066"
 
 Scenario: Admin views members list
-  Given two members exist
+  Given 2 members exist
   And I'm on the admin page
   When I follow "Members"
   Then I should be on the show members index page

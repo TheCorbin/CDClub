@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :members
   resources :members
-  resources :seasons
+  resources :seasons do
+    member do
+      get 'membership'
+    end
+  end
 
   get 'admin' => 'admin#index'
   # The priority is based upon order of creation: first created -> highest priority.

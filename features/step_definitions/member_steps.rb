@@ -1,7 +1,8 @@
-Given(/^two members exist$/) do
-  member1 = create :member
-  member2 = create :member
-  @members = [member1, member2]
+Given(/^(\d+) members exist$/) do |num_members|
+  @members = []
+  num_members.to_i.times do
+    @members << create(:member)
+  end
 end
 
 Then(/^I should see those members$/) do

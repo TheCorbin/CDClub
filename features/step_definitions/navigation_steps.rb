@@ -27,3 +27,7 @@ end
 Given(/^I'm on the members index page$/) do
   visit(members_path)
 end
+
+Given(/^I'm on the membership page for that season$/) do
+  pending # express the regexp above with the code you wish you had
+end

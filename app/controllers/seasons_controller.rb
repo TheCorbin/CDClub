@@ -1,6 +1,10 @@
 class SeasonsController < ApplicationController
   before_action :set_season, only: [:show, :edit, :update, :destroy]
 
+  def membership
+    
+  end
+
   # GET /seasons
   # GET /seasons.json
   def index
