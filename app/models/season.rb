@@ -1,6 +1,7 @@
 class Season < ActiveRecord::Base
   has_many :memberships
   has_many :members, through: :memberships
+  accepts_nested_attributes_for :memberships
 
   validates :name, presence: true, uniqueness: true
   validates :beginning_date, presence: true, uniqueness: true

@@ -1,10 +1,6 @@
 class SeasonsController < ApplicationController
   before_action :set_season, only: [:show, :edit, :update, :destroy]
 
-  def membership
-    
-  end
-
   # GET /seasons
   # GET /seasons.json
   def index
@@ -19,6 +15,9 @@ class SeasonsController < ApplicationController
   # GET /seasons/new
   def new
     @season = Season.new
+    Date::MONTHNAMES.compact.each do |month_name|
+      @season.memberships << Membership.new(month: month_name)
+    end
   end
 
   # GET /seasons/1/edit
@@ -73,6 +72,6 @@ class SeasonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def season_params
-      params.require(:season).permit(:name, :beginning_date, :ending_date)
+      params.require(:season).permit(:name, :beginning_date, :ending_date, memberships_attributes: [:id, :month, :member_id])
     end
 end
