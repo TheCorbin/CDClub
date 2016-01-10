@@ -3,6 +3,9 @@ require 'rails_helper'
 ILLEGAL_EMAIL_CHARACTERS = ['(', ')', '<', '>', ',', ';', ':', "\\", '/', "\"", '[', ']', '{', '}' ]
 
 RSpec.describe Member, type: :model do
+  it { is_expected.to have_many(:memberships) }
+  it { is_expected.to have_many(:seasons).through(:memberships) }
+
   describe 'factory' do
     let! (:first_member) { create :member }
     let! (:second_member) { build :member }

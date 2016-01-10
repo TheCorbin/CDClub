@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Season, type: :model do
+  it { is_expected.to have_many(:memberships) }
+  it { is_expected.to have_many(:members).through(:memberships)}
+
   describe 'factory' do
     let!(:first_season) { create :season }
     let!(:second_season) { build :season }
