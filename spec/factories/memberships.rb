@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :membership do
     member
     season
-    month "March"
+    sequence(:month) { |n| Date::MONTHNAMES[1..-1][(n - 1) % 12] }
   end
 end
