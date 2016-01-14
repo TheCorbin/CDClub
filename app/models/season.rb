@@ -9,6 +9,13 @@ class Season < ActiveRecord::Base
 
   validate :validate_sane_dates
 
+  def built_memberships
+    Date::MONTHNAMES.compact.map do |month_name|
+      actual_membership = self.memberships.find_by(month: month_name)
+      actual_membership || placeholder_membership(month_name)
+    end
+  end
+
   private
 
   def validate_sane_dates
@@ -17,5 +24,9 @@ class Season < ActiveRecord::Base
         errors.add(:ending_date, "must come after beginning date")
       end
     end
+  end
+
+  def placeholder_membership month_name
+    Membership.new season: self, month: month_name
   end
 end

@@ -49,4 +49,56 @@ RSpec.describe Season, type: :model do
 
     end
   end
+
+  describe 'built_memberships' do
+    let(:season) { create :season }
+    let(:returned_built_memberships) { season.built_memberships }
+    let(:returned_months) { returned_built_memberships.map{|membership| membership.month} }
+
+    let(:num_real_memberships) do
+      returned_built_memberships.select { |membership| !membership.new_record? }.count
+    end
+
+    let(:num_placeholder_memberships) do
+      returned_built_memberships.select { |membership| membership.new_record? }.count
+    end
+
+    context 'with 12 existing memberships' do
+      before do
+        Date::MONTHNAMES.compact.each do |month|
+          create :membership, season: season, month: month
+        end
+      end
+
+      it 'returns those existing memberships in order by month' do
+        expect(returned_months).to eq(Date::MONTHNAMES.compact)
+        expect(num_real_memberships).to eq(12)
+        expect(num_placeholder_memberships).to eq(0)
+      end
+    end
+
+    context 'with no existing memberships' do
+      # no before block that creates membership records
+
+      it 'returns 12 placeholder memberships in order by month' do
+        expect(returned_months).to eq(Date::MONTHNAMES.compact)
+        expect(num_real_memberships).to eq(0)
+        expect(num_placeholder_memberships).to eq(12)
+      end
+    end
+
+    context 'with some existing memberships' do
+      before do
+        ['March', 'June', 'September'].each do |month|
+          create :membership, season: season, month: month
+        end
+      end
+
+      it 'returns a mixture of actual, and placeholder memberships, in order by month' do
+        expect(returned_months).to eq(Date::MONTHNAMES.compact)
+        expect(num_real_memberships).to eq(3)
+        expect(num_placeholder_memberships).to eq(9)
+      end
+    end
+  end
 end
