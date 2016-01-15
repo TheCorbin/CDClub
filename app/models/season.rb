@@ -18,6 +18,12 @@ class Season < ActiveRecord::Base
     end
   end
 
+  def ordered_memberships
+    Date::MONTHNAMES.compact.map do |month_name|
+      memberships.find_by(month: month_name)
+    end
+  end
+
   private
 
   def validate_sane_dates

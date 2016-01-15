@@ -46,3 +46,7 @@ end
 Given(/^I'm on the show page for that season$/) do
   visit(season_path(@season))
 end
+
+Then(/^I should be on the edit page for that season$/) do
+  expect(page).to have_current_path(edit_season_path(@season))
+end

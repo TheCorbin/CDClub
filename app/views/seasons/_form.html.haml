@@ -22,8 +22,8 @@
   = @season.name
   Members List
   %ul
-    = f.fields_for :memberships do |memberships_form|
-      %li
+    = f.fields_for :memberships, @memberships do |memberships_form|
+      %li{id: "#{memberships_form.object.month.downcase}_membership"}
         = memberships_form.select(:month, options_for_select((1..12).map {|m| month_name = Date::MONTHNAMES[m]; [month_name, month_name]}, memberships_form.object.month))
         = memberships_form.collection_select(:member_id, Member.all, :id, :name)
   .actions

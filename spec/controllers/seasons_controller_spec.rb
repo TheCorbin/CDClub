@@ -64,10 +64,29 @@ RSpec.describe SeasonsController, type: :controller do
   end
 
   describe "GET #edit" do
-    it "assigns the requested season as @season" do
-      season = Season.create! valid_attributes
+    let(:season) { Season.create! valid_attributes }
+    before do
+      membership_months.each do |month|
+        create :membership, season: season, month: month
+      end
       get :edit, {id: season.to_param}, valid_session
-      expect(assigns(:season)).to eq(season)
+    end
+
+    context 'for a season with no memberships' do
+      let(:membership_months) { [] }
+      it "assigns the requested season as @season" do
+        expect(assigns(:season)).to eq(season)
+      end
+      it 'sets memberships for the @season in calendar order' do
+        expect(assigns(:memberships).map(&:month)).to eq(Date::MONTHNAMES.compact)
+      end
+    end
+
+    context 'for a season with 3 memberships' do
+      let(:membership_months) { ['March', 'July', 'October'] }
+      it 'sets memberships for the @season in calendar order' do
+        expect(assigns(:memberships).map(&:month)).to eq(Date::MONTHNAMES.compact)
+      end
     end
   end
 
