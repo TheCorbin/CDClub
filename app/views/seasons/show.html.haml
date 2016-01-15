@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @season.name
+%p
+  %strong Beginning date:
+  = @season.beginning_date
+%p
+  %strong Ending date:
+  = @season.ending_date
+= link_to 'Alter Season', edit_season_path(@season)
+|
+= link_to 'Back', seasons_path

@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @member.name
+%p
+  %strong Email:
+  = @member.email
+%p
+  %strong Address:
+  = @member.address
+= link_to 'Alter Member', edit_member_path(@member)
+|
+= link_to 'Back', members_path
