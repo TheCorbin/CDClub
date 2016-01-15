@@ -15,9 +15,6 @@ class SeasonsController < ApplicationController
   # GET /seasons/new
   def new
     @season = Season.new
-    Date::MONTHNAMES.compact.each do |month_name|
-      @season.memberships << Membership.new(month: month_name)
-    end
   end
 
   # GET /seasons/1/edit

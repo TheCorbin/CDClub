@@ -50,17 +50,22 @@ RSpec.describe Season, type: :model do
     end
   end
 
-  describe 'built_memberships' do
+  describe 'create_unfilled_memberships' do
     let(:season) { create :season }
-    let(:returned_built_memberships) { season.built_memberships }
-    let(:returned_months) { returned_built_memberships.map{|membership| membership.month} }
 
-    let(:num_real_memberships) do
-      returned_built_memberships.select { |membership| !membership.new_record? }.count
+    let(:returned_memberships) do
+      season.create_unfilled_memberships
+      season.memberships
     end
 
-    let(:num_placeholder_memberships) do
-      returned_built_memberships.select { |membership| membership.new_record? }.count
+    let(:returned_months) { returned_memberships.map{|membership| membership.month} }
+
+    let(:num_filled_memberships) do
+      returned_memberships.select { |membership| membership.member.present? }.count
+    end
+
+    let(:num_unfilled_memberships) do
+      returned_memberships.select { |membership| membership.member.nil? }.count
     end
 
     context 'with 12 existing memberships' do
@@ -72,8 +77,8 @@ RSpec.describe Season, type: :model do
 
       it 'returns those existing memberships in order by month' do
         expect(returned_months).to eq(Date::MONTHNAMES.compact)
-        expect(num_real_memberships).to eq(12)
-        expect(num_placeholder_memberships).to eq(0)
+        expect(num_filled_memberships).to eq(12)
+        expect(num_unfilled_memberships).to eq(0)
       end
     end
 
@@ -82,8 +87,8 @@ RSpec.describe Season, type: :model do
 
       it 'returns 12 placeholder memberships in order by month' do
         expect(returned_months).to eq(Date::MONTHNAMES.compact)
-        expect(num_real_memberships).to eq(0)
-        expect(num_placeholder_memberships).to eq(12)
+        expect(num_filled_memberships).to eq(0)
+        expect(num_unfilled_memberships).to eq(12)
       end
     end
 
@@ -95,9 +100,9 @@ RSpec.describe Season, type: :model do
       end
 
       it 'returns a mixture of actual, and placeholder memberships, in order by month' do
-        expect(returned_months).to eq(Date::MONTHNAMES.compact)
-        expect(num_real_memberships).to eq(3)
-        expect(num_placeholder_memberships).to eq(9)
+        expect(returned_months.to_set).to eq(Date::MONTHNAMES.compact.to_set)
+        expect(num_filled_memberships).to eq(3)
+        expect(num_unfilled_memberships).to eq(9)
       end
     end
   end
