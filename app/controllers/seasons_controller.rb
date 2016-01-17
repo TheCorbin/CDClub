@@ -76,13 +76,15 @@ class SeasonsController < ApplicationController
     end
 
     def enforce_no_duplicate_members
-      membership_hashes = season_params["memberships_attributes"].values
-      membership_ids = membership_hashes.map{|membership_hash| membership_hash['member_id']}
-      membership_ids.reject!{ |membership_id| membership_id.blank? }
+      membership_hashes = season_params["memberships_attributes"].try(:values)
+      if membership_hashes.present?
+        membership_ids = membership_hashes.map{|membership_hash| membership_hash['member_id']}
+        membership_ids.reject!{ |membership_id| membership_id.blank? }
 
-      if membership_ids != membership_ids.uniq
-        flash[:error] = "There are duplicate members in this season"
-        render :edit
+        if membership_ids != membership_ids.uniq
+          flash[:error] = "There are duplicate members in this season"
+          render :edit
+        end
       end
     end
 end

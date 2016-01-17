@@ -32,8 +32,8 @@ Given(/^"(.*?)" is assigned to "(.*?)"$/) do |member_name, month_name|
 end
 
 When(/^I assign "(.*?)" to "(.*?)"$/) do |member_name, month_name|
-  month_number = Date::MONTHNAMES.compact.find_index{ |month_str| month_str == month_name }
-  step(%Q{I select "#{member_name}" from "season_memberships_attributes_#{month_number}_member_id"})
+  month_index = find_month_index month_name
+  step(%Q{I select "#{member_name}" from "season_memberships_attributes_#{month_index}_member_id"})
 end
 
 Then(/^I should see "(.*?)" assigned to "(.*?)"$/) do |member_name, month_name|
@@ -43,17 +43,12 @@ Then(/^I should see "(.*?)" assigned to "(.*?)"$/) do |member_name, month_name|
   end
 end
 
-
-When(/^I assign a different member to (\d+) months$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
 Given(/^a member has been assigned to that season$/) do
   pending # express the regexp above with the code you wish you had
 end
 
 Then(/^I should see that member has been removed from that season$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).not_to have_content(@member.name)
 end
 
 Given(/^I'm on that season's edit page$/) do
@@ -61,10 +56,21 @@ Given(/^I'm on that season's edit page$/) do
 end
 
 When(/^I assign that member to two different months$/) do
-  pending # express the regexp above with the code you wish you had
+  ['January', 'February'].each do |month_name|
+    step(%Q{I assign "#{@member.name}" to "#{month_name}"})
+  end
 end
 
 When(/^I assign that member to one month$/) do
   member_name = @member.name
   step(%Q{I select "#{member_name}" from "season_memberships_attributes_0_member_id"})
+end
+
+When(/^I unassign member from "(.*?)"$/) do |month_name|
+  month_index = find_month_index(month_name)
+  step(%Q{I select "" from "season_memberships_attributes_#{month_index}_member_id"})
+end
+
+def find_month_index month_name
+  Date::MONTHNAMES.compact.find_index{ |month_str| month_str == month_name }
 end
