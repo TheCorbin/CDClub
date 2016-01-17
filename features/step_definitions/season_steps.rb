@@ -48,7 +48,7 @@ Given(/^I'm on the show page for that season$/) do
 end
 
 Then(/^I should be on the show page for that season$/) do
-  # @season ||= Season.last
+  @season ||= Season.last
   expect(page).to have_current_path(season_path(@season))
 end
 

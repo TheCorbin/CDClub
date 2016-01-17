@@ -13,8 +13,8 @@ Scenario: Admin creates season
    And I press "Create Season"
   Then I should be on the show page for that season
     And I should see "Cd Club 2.1"
-    And I should see "01/01/2016"
-    And I should see "12/31/2016"
+    And I should see "2016-01-01"
+    And I should see "2016-12-31"
 
 Scenario: Admin views seasons list
   Given two seasons exist

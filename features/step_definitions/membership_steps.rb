@@ -1,22 +1,26 @@
 When(/^I assign a different member to each of the (\d+) months$/) do |num_months|
+  members = Member.all
+
   num_months.to_i.times do |i|
     month_num = i.to_i + 1
-    member_name = "Member#{month_num}"
+    member = members[i]
     month_name = Date::MONTHNAMES[month_num]
 
     within "li##{month_name.downcase}_membership" do
-      step(%Q{I select "#{member_name}" from "season_memberships_attributes_#{i}_member_id"})
+      step(%Q{I select "#{member.name}" from "season_memberships_attributes_#{i}_member_id"})
     end
   end
 end
 
 Then(/^I should see those (\d+) members assigned to the correct months$/) do |num_members|
+  members = Member.all
+  expect(members.size).to eq(num_members.to_i)
+
   num_members.to_i.times do |i|
-    j = i + 1
-    member_name = "Member#{j}"
-    month_name = Date::MONTHNAMES[j]
+    member = members[i]
+    month_name = Date::MONTHNAMES.compact[i]
     membership = @season.memberships.find_by(month: month_name)
-    expect(membership.member.name).to eq(member_name)
+    expect(membership.member.name).to eq(member.name)
   end
 end
 

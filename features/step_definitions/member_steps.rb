@@ -30,6 +30,7 @@ Given(/^I'm on the show page for that member$/) do
 end
 
 Then(/^I should be on the show page for that member$/) do
+  @member ||= Member.last
   expect(page).to have_current_path(member_path(@member))
 end
 

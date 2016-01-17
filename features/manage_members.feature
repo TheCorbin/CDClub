@@ -13,7 +13,6 @@ Scenario: Admin creates member
    And I press "Create Member"
   Then I should be on the show page for that member
     And I should see "Ryan Corbin"
-    And I should see "January"
     And I should see "Ryanjcorbin@gmail.com"
     And I should see "3409 Dawes St, Apartment B, Madison, WI 53066"
 
