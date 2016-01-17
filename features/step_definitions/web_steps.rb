@@ -14,6 +14,10 @@ Then(/^I should see "([^"]*?)"$/) do |desired_text|
   expect(page).to have_content(desired_text)
 end
 
+Then(/^I should not see "(.*?)"$/) do |undesired_text|
+  expect(page).not_to have_content(undesired_text)
+end
+
 # Abstract way to select date with the year, month, day pulldowns that the scaffold generator uses
 When(/^I select date "(.*?)" for "(.*?)"$/) do |date_str, date_field_prefix|
   month, day, year = date_str.split('/')

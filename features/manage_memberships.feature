@@ -19,20 +19,21 @@ Feature: Assign Members To Season
     And I'm on that season's edit page
     When I assign that member to one month
     And I press "Update Season"
-    Then I should see "no duplicate members allowed"
+    Then I should not see "no duplicate members allowed"
     And that season should have no duplicate members
 
   Scenario: Admin swaps months for two members
     Given one season exists
-    And 2 members exist
-    And "Member1" is assigned to "January"
-    And "Member2" is assigned to "February"
+    And member "Ryan" exists
+    And member "Stephen" exists
+    And "Ryan" is assigned to "January"
+    And "Stephen" is assigned to "February"
     And I'm on the edit page for that season
-    When I assign "Member2" to "January"
-    And I assign "Member1" to "February"
+    When I assign "Stephen" to "January"
+    And I assign "Ryan" to "February"
     And I press "Update Season"
-    Then I should see "Member2" assigned to "January"
-    And I should see "Member1" assigned to "February"
+    Then I should see "Stephen" assigned to "January"
+    And I should see "Ryan" assigned to "February"
 
   Scenario: Admin assigns two members to a season
     Given one season exists

@@ -51,3 +51,7 @@ end
 Then(/^I should not see that member$/) do
   expect(page).not_to have_content(@member.name)
 end
+
+Given(/^member "(.*?)" exists$/) do |member_name|
+   create(:member, name: member_name)
+end
