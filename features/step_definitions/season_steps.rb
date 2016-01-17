@@ -47,6 +47,15 @@ Given(/^I'm on the show page for that season$/) do
   visit(season_path(@season))
 end
 
+Then(/^I should be on that season's show page$/) do
+  expect(page).to have_current_path(season_path(@season))
+end
+
 Then(/^I should be on the edit page for that season$/) do
   expect(page).to have_current_path(edit_season_path(@season))
+end
+
+Then(/^that season should have no duplicate members$/) do
+  member_ids = @season.memberships.map(&:member_id).compact
+  expect(member_ids).to eq(member_ids.uniq)
 end

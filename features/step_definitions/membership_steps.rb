@@ -40,10 +40,15 @@ Then(/^I should see that member has been removed from that season$/) do
   pending # express the regexp above with the code you wish you had
 end
 
-Given(/^I'm on that season's membership page$/) do
-  pending # express the regexp above with the code you wish you had
+Given(/^I'm on that season's edit page$/) do
+  visit(edit_season_path(@season))
 end
 
 When(/^I assign that member to two different months$/) do
   pending # express the regexp above with the code you wish you had
+end
+
+When(/^I assign that member to one month$/) do
+  member_name = @member.name
+  step(%Q{I select "#{member_name}" from "season_memberships_attributes_0_member_id"})
 end

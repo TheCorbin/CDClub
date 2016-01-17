@@ -1,5 +1,5 @@
 class Season < ActiveRecord::Base
-  has_many :memberships
+  has_many :memberships, validate: true
   has_many :members, through: :memberships
   accepts_nested_attributes_for :memberships
 

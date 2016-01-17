@@ -1,5 +1,6 @@
 class SeasonsController < ApplicationController
   before_action :set_season, only: [:show, :edit, :update, :destroy]
+  before_action :enforce_no_duplicate_members, only: [:update]
 
   # GET /seasons
   # GET /seasons.json
@@ -72,5 +73,16 @@ class SeasonsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def season_params
       params.require(:season).permit(:name, :beginning_date, :ending_date, memberships_attributes: [:id, :month, :member_id])
+    end
+
+    def enforce_no_duplicate_members
+      membership_hashes = season_params["memberships_attributes"].values
+      membership_ids = membership_hashes.map{|membership_hash| membership_hash['member_id']}
+      membership_ids.reject!{ |membership_id| membership_id.blank? }
+
+      if membership_ids != membership_ids.uniq
+        flash[:error] = "There are duplicate members in this season"
+        render :edit
+      end
     end
 end
