@@ -10,8 +10,8 @@ When(/^I fill in "(.*?)" with "(.*?)"$/) do |field_label, field_text|
   fill_in field_label, with: field_text
 end
 
-Then(/^I should see "(.*?)"$/) do |desired_text|
-  page.has_content?(desired_text)
+Then(/^I should see "([^"]*?)"$/) do |desired_text|
+  expect(page).to have_content(desired_text)
 end
 
 # Abstract way to select date with the year, month, day pulldowns that the scaffold generator uses

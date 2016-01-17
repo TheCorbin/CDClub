@@ -20,13 +20,25 @@ Then(/^I should see those (\d+) members assigned to the correct months$/) do |nu
   end
 end
 
-Given(/^"(.*?)" is assigned to "(.*?)"$/) do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+Given(/^"(.*?)" is assigned to "(.*?)"$/) do |member_name, month_name|
+  @season.create_unfilled_memberships
+  membership = @season.memberships.find_by(month: month_name)
+  membership.member = Member.find_by(name: member_name)
+  membership.save!
 end
 
-When(/^I assign "(.*?)" to "(.*?)"$/) do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+When(/^I assign "(.*?)" to "(.*?)"$/) do |member_name, month_name|
+  month_number = Date::MONTHNAMES.compact.find_index{ |month_str| month_str == month_name }
+  step(%Q{I select "#{member_name}" from "season_memberships_attributes_#{month_number}_member_id"})
 end
+
+Then(/^I should see "(.*?)" assigned to "(.*?)"$/) do |member_name, month_name|
+  within "##{month_name.downcase}_membership" do
+    expect(page).to have_content(month_name)
+    expect(page).to have_content(member_name)
+  end
+end
+
 
 When(/^I assign a different member to (\d+) months$/) do |arg1|
   pending # express the regexp above with the code you wish you had

@@ -24,14 +24,15 @@ Feature: Assign Members To Season
 
   Scenario: Admin swaps months for two members
     Given one season exists
-    And "Ryan" is assigned to "January"
-    And "Stephen" is assigned to "February"
-    And I'm on the membership page for that season
-    When I assign "Stephen" to "January"
-    And I assign "Ryan" to "February"
+    And 2 members exist
+    And "Member1" is assigned to "January"
+    And "Member2" is assigned to "February"
+    And I'm on the edit page for that season
+    When I assign "Member2" to "January"
+    And I assign "Member1" to "February"
     And I press "Update Season"
-    Then I should see "Stephen" assigned to "January"
-    And I should see "Ryan" assigned to "February"
+    Then I should see "Member2" assigned to "January"
+    And I should see "Member1" assigned to "February"
 
   Scenario: Admin assigns two members to a season
     Given one season exists

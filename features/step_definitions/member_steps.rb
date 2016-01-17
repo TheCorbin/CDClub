@@ -29,6 +29,10 @@ Given(/^I'm on the show page for that member$/) do
   visit(member_path(@member))
 end
 
+Then(/^I should be on the show page for that member$/) do
+  expect(page).to have_current_path(member_path(@member))
+end
+
 When(/^I alter the details for that member$/) do
   fill_in 'Name', with: 'James Hidigger'
   fill_in 'Email', with: 'James@gmail.com'

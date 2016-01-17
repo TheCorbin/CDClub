@@ -8,6 +8,13 @@
 %p
   %strong Ending date:
   = @season.ending_date
+%div
+  %ul
+    - season.memberships, @memberships do |membership|
+      %li{id: "#{membership.month.downcase}_membership"}
+        = membership.month
+        = membership.member.name
+
 = link_to 'Alter Season', edit_season_path(@season)
 |
 = link_to 'Back', seasons_path
