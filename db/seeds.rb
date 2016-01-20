@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+12.times do |i|
+  Month.create! order: i, name: Date::MONTHNAMES.compact[i]
+end
