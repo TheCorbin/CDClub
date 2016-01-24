@@ -3,18 +3,30 @@ Feature: Admin manages members
   As an admin
   I want to create members
 
-Scenario: Admin creates member
-  Given I'm on the admin page
-  When I follow "Members"
-    And I follow "New Member"
+# Scenario: Admin invites member
+#   Given I'm on the admin page
+#   When I follow "Members"
+#     And I follow "New Member"
+#     And I fill in "Name" with "Ryan Corbin"
+#     And I fill in "Email" with "Ryanjcorbin@gmail.com"
+#     And I fill in "Address" with "3409 Dawes St, Apartment B, Madison, WI 53066"
+#    And I press "Create Member"
+#   Then I should be on the show page for that member
+#     And I should see "Ryan Corbin"
+#     And I should see "Ryanjcorbin@gmail.com"
+#     And I should see "3409 Dawes St, Apartment B, Madison, WI 53066"
+
+Scenario: member self registers
+  Given I'm on the sign up page
     And I fill in "Name" with "Ryan Corbin"
     And I fill in "Email" with "Ryanjcorbin@gmail.com"
+    And I fill in "Password" with "password"
+    And I fill in "Password confirmation" with "password"
     And I fill in "Address" with "3409 Dawes St, Apartment B, Madison, WI 53066"
-   And I press "Create Member"
-  Then I should be on the show page for that member
-    And I should see "Ryan Corbin"
-    And I should see "Ryanjcorbin@gmail.com"
-    And I should see "3409 Dawes St, Apartment B, Madison, WI 53066"
+   And I press "Sign up"
+   Then I should be on the home page
+   And I should see "A message with a confirmation link has been sent to your email address"
+   And I should see "Please follow the link to activate your account."
 
 Scenario: Admin views members list
   Given 2 members exist

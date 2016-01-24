@@ -20,7 +20,7 @@ RSpec.describe MembersController, type: :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/members").to route_to("members#create")
+      expect(:post => "/members").to route_to("members/registrations#create")
     end
 
     it "routes to #update via PUT" do

@@ -57,6 +57,7 @@ Feature: Assign Members To Season
     And I'm on that season's edit page
     When I assign that member to two different months
     And I press "Update Season"
+    And show me the page
     Then I should see "There are duplicate members in this season"
 
   Scenario: Admin sees all 12 months listed

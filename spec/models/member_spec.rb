@@ -27,7 +27,7 @@ RSpec.describe Member, type: :model do
       let(:subject) {build :member, email: email}
 
       it { is_expected.to validate_presence_of(:email) }
-      it { is_expected.to validate_uniqueness_of(:email) }
+      it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
 
       context 'when valid' do
         it { is_expected.to be_valid }

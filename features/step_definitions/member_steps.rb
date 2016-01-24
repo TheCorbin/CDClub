@@ -12,7 +12,7 @@ Then(/^I should see those members$/) do
 end
 
 Given(/^one member exists$/) do
-  @member = Member.create! name: 'Ryan Corbin',  email: 'Ryan@gmail.com', address: '123 Fake St, Madison, WI 53714'
+  @member = Member.create! name: 'Ryan Corbin',  email: 'Ryan@gmail.com', address: '123 Fake St, Madison, WI 53714', password: 'password', password_confirmation: 'password'
 end
 
 When(/^I click on the name of that member$/) do
@@ -41,7 +41,7 @@ When(/^I alter the details for that member$/) do
 end
 
 Then(/^I should see the new details for that member$/) do
-  @member = Member.new name: 'James Hidigger', email: 'James@gmail.com', address: '123 Phony St, Madison, WI 53714'
+  @member = Member.new name: 'James Hidigger', email: 'james@gmail.com', address: '123 Phony St, Madison, WI 53714'
   step 'I should see the details for that member'
 end
 
