@@ -21,12 +21,10 @@
     = f.date_select :ending_date
   = @season.name
   Members List
-  %ul
-    = f.fields_for :memberships, @memberships do |memberships_form|
-      %li{id: "#{memberships_form.object.month.name.downcase}_membership"}
-        - month_options = options_for_select((1..12).map {|m| month_name = Date::MONTHNAMES[m]; [month_name, month_name]}, memberships_form.object.month)
-        = memberships_form.select(:month, month_options)
-
-        = memberships_form.collection_select(:member_id, Member.all, :id, :name, { include_blank: true } )
+  %table
+    = f.fields_for :memberships, @memberships do |mf|
+      %tr{id: "#{mf.object.month.name.downcase}_membership"}
+        %td= mf.label :member_id, mf.object.month.name
+        %td= mf.collection_select(:member_id, Member.all, :id, :name, { include_blank: true } )
   .actions
     = f.submit

@@ -6,7 +6,7 @@ When(/^I assign a different member to each of the (\d+) months$/) do |num_months
     member = members[i]
     month_name = Date::MONTHNAMES[month_num]
 
-    within "li##{month_name.downcase}_membership" do
+    within "tr##{month_name.downcase}_membership" do
       step(%Q{I select "#{member.name}" from "season_memberships_attributes_#{i}_member_id"})
     end
   end
@@ -71,6 +71,12 @@ end
 When(/^I unassign member from "(.*?)"$/) do |month_name|
   month_index = find_month_index(month_name)
   step(%Q{I select "" from "season_memberships_attributes_#{month_index}_member_id"})
+end
+
+Then(/^I see all 12 months$/) do
+  Date::MONTHNAMES.compact.each do |month_name|
+    expect(page).to have_content(month_name)
+  end
 end
 
 def find_month_index month_name
