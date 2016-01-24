@@ -28,6 +28,7 @@ Scenario: Admin views individual season
   And I'm on the seasons index page
   When I click on the name of that season
   Then I should see the details for that season
+  Then I see all 12 months
 
 Scenario: Admin alters season
   Given one season exists

@@ -11,6 +11,7 @@ class SeasonsController < ApplicationController
   # GET /seasons/1
   # GET /seasons/1.json
   def show
+    @season.create_unfilled_memberships
   end
 
   # GET /seasons/new

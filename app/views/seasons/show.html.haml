@@ -9,11 +9,11 @@
   %strong Ending date:
   = @season.ending_date
 %div
-  %ul
+  %table
     - @season.memberships.each do |membership|
-      %li{id: "#{membership.month.name.downcase}_membership"}
-        = membership.month
-        = membership.member.try(:name)
+      %tr{id: "#{membership.month.name.downcase}_membership"}
+        %td= membership.month.name
+        %td= membership.member.try(:name)
 
 = link_to 'Alter Season', edit_season_path(@season)
 |
