@@ -19,6 +19,9 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe SeasonsController, type: :controller do
+  before do
+    Month.ensure_12_months
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Season. As you add validations to Season, be sure to
@@ -65,8 +68,11 @@ RSpec.describe SeasonsController, type: :controller do
 
   describe "GET #edit" do
     let(:season) { Season.create! valid_attributes }
+    let(:result_membership_months) { assigns[:memberships].map(&:month_id) }
+
     before do
-      membership_months.each do |month|
+      membership_months.each do |month_name|
+        month = Month.find_by(name: month_name)
         create :membership, season: season, month: month
       end
       get :edit, {id: season.to_param}, valid_session
@@ -78,14 +84,15 @@ RSpec.describe SeasonsController, type: :controller do
         expect(assigns(:season)).to eq(season)
       end
       it 'sets memberships for the @season in calendar order' do
-        expect(assigns(:memberships).map(&:month)).to eq(Date::MONTHNAMES.compact)
+        expect(result_membership_months).to eq(Month.all.order(:order).map(&:id).to_a)
+                # expect(assigns(:memberships).map{|t| t }).to eq(Month.all.order(:order))
       end
     end
 
     context 'for a season with 3 memberships' do
       let(:membership_months) { ['March', 'July', 'October'] }
       it 'sets memberships for the @season in calendar order' do
-        expect(assigns(:memberships).map(&:month)).to eq(Date::MONTHNAMES.compact)
+        expect(assigns(:memberships).map(&:month_id)).to eq(Month.all.order(:order).map(&:id).to_a)
       end
     end
   end

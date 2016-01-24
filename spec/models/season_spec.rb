@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Season, type: :model do
+  before do
+    Month.ensure_12_months
+  end
+
   it { is_expected.to have_many(:memberships) }
   it { is_expected.to have_many(:members).through(:memberships) }
   it { is_expected.to accept_nested_attributes_for(:memberships) }
@@ -58,7 +62,7 @@ RSpec.describe Season, type: :model do
       season.memberships
     end
 
-    let(:returned_months) { returned_memberships.map{|membership| membership.month} }
+    let(:returned_months) { returned_memberships.map{|membership| membership.month.order} }
 
     let(:num_filled_memberships) do
       returned_memberships.select { |membership| membership.member.present? }.count
@@ -70,13 +74,13 @@ RSpec.describe Season, type: :model do
 
     context 'with 12 existing memberships' do
       before do
-        Date::MONTHNAMES.compact.each do |month|
+        Month.all.order(:order).each do |month|
           create :membership, season: season, month: month
         end
       end
 
       it 'returns those existing memberships in order by month' do
-        expect(returned_months).to eq(Date::MONTHNAMES.compact)
+        expect(returned_months).to eq((0..11).to_a)
         expect(num_filled_memberships).to eq(12)
         expect(num_unfilled_memberships).to eq(0)
       end
@@ -86,7 +90,7 @@ RSpec.describe Season, type: :model do
       # no before block that creates membership records
 
       it 'returns 12 placeholder memberships in order by month' do
-        expect(returned_months).to eq(Date::MONTHNAMES.compact)
+        expect(returned_months).to eq((0..11).to_a)
         expect(num_filled_memberships).to eq(0)
         expect(num_unfilled_memberships).to eq(12)
       end
@@ -94,13 +98,14 @@ RSpec.describe Season, type: :model do
 
     context 'with some existing memberships' do
       before do
-        ['March', 'June', 'September'].each do |month|
+        ['March', 'June', 'September'].each do |month_name|
+          month = Month.find_by name: month_name
           create :membership, season: season, month: month
         end
       end
 
       it 'returns a mixture of actual, and placeholder memberships, in order by month' do
-        expect(returned_months.to_set).to eq(Date::MONTHNAMES.compact.to_set)
+        expect(returned_months.to_set).to eq((0..11).to_set)
         expect(num_filled_memberships).to eq(3)
         expect(num_unfilled_memberships).to eq(9)
       end

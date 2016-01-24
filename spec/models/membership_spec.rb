@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Membership, type: :model do
   it { is_expected.to belong_to :member }
   it { is_expected.to belong_to :season }
+  it { is_expected.to belong_to :month }
 
   describe 'factory' do
     let!(:first_membership) { create :membership}
@@ -25,9 +26,8 @@ RSpec.describe Membership, type: :model do
     end
 
     describe 'month' do
-      it { is_expected.to validate_uniqueness_of(:month).scoped_to(:season_id) }
-      it { is_expected.to validate_inclusion_of(:month).
-                   in_array(Date::MONTHNAMES.compact)}
+      it { is_expected.to validate_presence_of(:month_id) }
+      it { is_expected.to validate_uniqueness_of(:month_id).scoped_to(:season_id) }
     end
   end
 end

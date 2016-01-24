@@ -10,17 +10,22 @@ class Season < ActiveRecord::Base
   validate :validate_sane_dates
 
   def create_unfilled_memberships
-    Date::MONTHNAMES.compact.each do |month_name|
-      actual_membership = self.memberships.find_by(month: month_name)
+    Month.ensure_12_months
+
+    Month.all.order(:order).each do |month|
+      actual_membership = self.memberships.find_by(month: month)
       if actual_membership.nil?
-        Membership.create! season: self, month: month_name
+        Membership.create! season: self, month: month
       end
     end
   end
 
   def ordered_memberships
+    create_unfilled_memberships
+
     Date::MONTHNAMES.compact.map do |month_name|
-      memberships.find_by(month: month_name)
+      month = Month.find_by(name: month_name)
+      memberships.find_by(month_id: month.id)
     end
   end
 
