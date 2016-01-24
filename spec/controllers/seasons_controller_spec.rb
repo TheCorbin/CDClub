@@ -84,8 +84,7 @@ RSpec.describe SeasonsController, type: :controller do
         expect(assigns(:season)).to eq(season)
       end
       it 'sets memberships for the @season in calendar order' do
-        expect(result_membership_months).to eq(Month.all.order(:order).map(&:id).to_a)
-                # expect(assigns(:memberships).map{|t| t }).to eq(Month.all.order(:order))
+        expect(result_membership_months).to eq(Month.all.map(&:id).to_a)
       end
     end
 

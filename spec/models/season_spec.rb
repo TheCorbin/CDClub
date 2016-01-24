@@ -74,7 +74,7 @@ RSpec.describe Season, type: :model do
 
     context 'with 12 existing memberships' do
       before do
-        Month.all.order(:order).each do |month|
+        Month.all.each do |month|
           create :membership, season: season, month: month
         end
       end
