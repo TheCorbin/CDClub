@@ -19,14 +19,16 @@ Then(/^I should see those (\d+) members assigned to the correct months$/) do |nu
   num_members.to_i.times do |i|
     member = members[i]
     month_name = Date::MONTHNAMES.compact[i]
-    membership = @season.memberships.find_by(month: month_name)
+    month = Month.find_by(name: month_name)
+    membership = @season.memberships.find_by(month_id: month.id)
     expect(membership.member.name).to eq(member.name)
   end
 end
 
 Given(/^"(.*?)" is assigned to "(.*?)"$/) do |member_name, month_name|
   @season.create_unfilled_memberships
-  membership = @season.memberships.find_by(month: month_name)
+  month = Month.find_by(name: month_name)
+  membership = @season.memberships.find_by(month_id: month.id)
   membership.member = Member.find_by(name: member_name)
   membership.save!
 end

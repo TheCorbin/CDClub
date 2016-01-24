@@ -72,7 +72,7 @@ class SeasonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def season_params
-      params.require(:season).permit(:name, :beginning_date, :ending_date, memberships_attributes: [:id, :month, :member_id])
+      params.require(:season).permit(:name, :beginning_date, :ending_date, memberships_attributes: [:id, :month_id, :member_id])
     end
 
     def enforce_no_duplicate_members
