@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 12.times do |i|
-  Month.create! order: i, name: Date::MONTHNAMES.compact[i]
+  Month.create! order: i, name: Month::NAMES[i]
 end

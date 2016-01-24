@@ -4,5 +4,5 @@
   %ul
     = f.fields_for :memberships do |memberships_form|
       %li
-        = memberships_form.select(:month, options_for_select((1..12).map {|m| month_name = Date::MONTHNAMES[m] [month_name, month_name]}))
+        = memberships_form.select(:month, options_for_select((1..12).map {|m| month_name = Month::NAMES[m - 1] [month_name, month_name]}))
         = memberships_form.collection_select(:member_id, Member.all, :id, :name)

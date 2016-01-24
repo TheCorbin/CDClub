@@ -23,7 +23,7 @@ class Season < ActiveRecord::Base
   def ordered_memberships
     create_unfilled_memberships
 
-    Date::MONTHNAMES.compact.map do |month_name|
+    Month::NAMES.map do |month_name|
       month = Month.find_by(name: month_name)
       memberships.find_by(month_id: month.id)
     end

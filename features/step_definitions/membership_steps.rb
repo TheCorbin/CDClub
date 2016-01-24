@@ -2,9 +2,8 @@ When(/^I assign a different member to each of the (\d+) months$/) do |num_months
   members = Member.all
 
   num_months.to_i.times do |i|
-    month_num = i.to_i + 1
     member = members[i]
-    month_name = Date::MONTHNAMES[month_num]
+    month_name = Month::NAMES[i]
 
     within "tr##{month_name.downcase}_membership" do
       step(%Q{I select "#{member.name}" from "season_memberships_attributes_#{i}_member_id"})
@@ -18,7 +17,7 @@ Then(/^I should see those (\d+) members assigned to the correct months$/) do |nu
 
   num_members.to_i.times do |i|
     member = members[i]
-    month_name = Date::MONTHNAMES.compact[i]
+    month_name = Month::NAMES[i]
     month = Month.find_by(name: month_name)
     membership = @season.memberships.find_by(month_id: month.id)
     expect(membership.member.name).to eq(member.name)
@@ -74,11 +73,11 @@ When(/^I unassign member from "(.*?)"$/) do |month_name|
 end
 
 Then(/^I see all 12 months$/) do
-  Date::MONTHNAMES.compact.each do |month_name|
+  Month::NAMES.each do |month_name|
     expect(page).to have_content(month_name)
   end
 end
 
 def find_month_index month_name
-  Date::MONTHNAMES.compact.find_index{ |month_str| month_str == month_name }
+  Month::NAMES.find_index{ |month_str| month_str == month_name }
 end

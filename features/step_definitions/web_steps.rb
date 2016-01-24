@@ -21,7 +21,7 @@ end
 # Abstract way to select date with the year, month, day pulldowns that the scaffold generator uses
 When(/^I select date "(.*?)" for "(.*?)"$/) do |date_str, date_field_prefix|
   month, day, year = date_str.split('/')
-  month_name = Date::MONTHNAMES[month.to_i]
+  month_name = Month::NAMES[month.to_i - 1]
 
   step "I select \"#{year}\" from \"#{date_field_prefix}_1i\""
   step "I select \"#{month_name}\" from \"#{date_field_prefix}_2i\""
