@@ -22,7 +22,6 @@ class SeasonsController < ApplicationController
   # GET /seasons/1/edit
   def edit
     @season.create_unfilled_memberships
-    @memberships = @season.ordered_memberships
   end
 
   # POST /seasons

@@ -22,7 +22,7 @@
   = @season.name
   Members List
   %table
-    = f.fields_for :memberships, @memberships do |mf|
+    = f.fields_for :memberships do |mf|
       %tr{id: "#{mf.object.month.name.downcase}_membership"}
         %td= mf.label :member_id, mf.object.month.name
         %td= mf.collection_select(:member_id, Member.all, :id, :name, { include_blank: true } )

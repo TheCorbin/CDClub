@@ -68,7 +68,7 @@ RSpec.describe SeasonsController, type: :controller do
 
   describe "GET #edit" do
     let(:season) { Season.create! valid_attributes }
-    let(:result_membership_months) { assigns[:memberships].map(&:month_id) }
+    let(:result_membership_months) { assigns[:season].memberships.map(&:month_id) }
 
     before do
       membership_months.each do |month_name|
@@ -91,8 +91,11 @@ RSpec.describe SeasonsController, type: :controller do
 
     context 'for a season with 3 memberships' do
       let(:membership_months) { ['March', 'July', 'October'] }
+      let(:result_membership_month_ids) { assigns(:season).memberships.map(&:month_id) }
+      let(:expected_membership_month_ids) { Month.all.map(&:id).to_a }
+
       it 'sets memberships for the @season in calendar order' do
-        expect(assigns(:memberships).map(&:month_id)).to eq(Month.all.order(:order).map(&:id).to_a)
+        expect(result_membership_month_ids).to eq(expected_membership_month_ids)
       end
     end
   end

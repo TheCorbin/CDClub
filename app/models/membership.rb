@@ -6,4 +6,6 @@ class Membership < ActiveRecord::Base
   validates :member_id, uniqueness: { scope: :season_id, allow_nil: true }
   validates :season_id, presence: true
   validates :month_id, presence: true, uniqueness: { scope: :season_id }
+
+  default_scope { includes(:month).order('months.order') }
 end

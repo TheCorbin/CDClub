@@ -20,15 +20,6 @@ class Season < ActiveRecord::Base
     end
   end
 
-  def ordered_memberships
-    create_unfilled_memberships
-
-    Month::NAMES.map do |month_name|
-      month = Month.find_by(name: month_name)
-      memberships.find_by(month_id: month.id)
-    end
-  end
-
   private
 
   def validate_sane_dates
