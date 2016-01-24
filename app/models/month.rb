@@ -5,6 +5,8 @@ class Month < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true, inclusion: { in: NAMES }
   validates :order, presence: true, uniqueness: true, numericality: { less_than: 12, greater_than: -1 }
 
+  default_scope { order(:order) }
+
   def self.ensure_12_months
     if Month.count < 12
       12.times do |i|

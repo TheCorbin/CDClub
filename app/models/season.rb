@@ -12,7 +12,7 @@ class Season < ActiveRecord::Base
   def create_unfilled_memberships
     Month.ensure_12_months
 
-    Month.all.order(:order).each do |month|
+    Month.all.each do |month|
       actual_membership = self.memberships.find_by(month: month)
       if actual_membership.nil?
         Membership.create! season: self, month: month
